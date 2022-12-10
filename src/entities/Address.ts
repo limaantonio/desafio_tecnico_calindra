@@ -7,6 +7,8 @@ class Address {
   neighborhood!: string;
   state!: string;
   housenumber!: string;
+  lat!: string;
+  lon!: string
 
   // constructor(
   //   street: string,

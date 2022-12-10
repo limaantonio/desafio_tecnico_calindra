@@ -7,7 +7,7 @@ const app = express();
 
 mongoose.set('strictQuery', true);
 mongoose.connect(
-  `mongodb+srv://${process.env.USER}:${process.env.PWD}@cluster0-7t1fg.mongodb.net/dbGeocode?retryWrites=true&w=majority`,
+  `mongodb+srv://carlos:137Red@cluster0-7t1fg.mongodb.net/dbGeocode?retryWrites=true&w=majority`,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
