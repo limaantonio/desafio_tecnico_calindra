@@ -1,9 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 //import AddressModel from '../models/AddressModel';
-import { getDistanceTwoPoint } from '../services/ApiGeoapify';
+import { getDistanceTwoPoint, getGraph } from '../services/ApiGeoapify';
 
 class AddressController {
   async index(request: Request, response: Response) {
+
+   
     
     return response.json("API Coordinate");
   }
@@ -11,9 +13,11 @@ class AddressController {
   async create(request: Request, response: Response) {
     const addresses = request.body;
 
-    const distance = await getDistanceTwoPoint(addresses)
+    getGraph(addresses);
 
-    return response.json({"Distancia": distance});
+   // const distance = await getDistanceTwoPoint(addresses)
+
+    return response.json({"Distancia": addresses});
   }
 }
 
