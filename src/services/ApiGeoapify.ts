@@ -58,14 +58,14 @@ function getGraph(address:Array<Address>) {
     g.addVertex(address[i])
   }
 
-  var c=0;
+ 
 
   for (var i=0; i < address.length; i++) {
 
-    for (var j=i+1; j < address.length - (i+c+1); j++) {
-      g.addEdge(address[i], address[j])
+    for (var j=i; j < address.length - j; j++) {
+      g.addEdge(address[i], address[j+1])
     }
-    c += 1
+   
 
 
      //   v[0] -> '01' = 6, '02' = 4, '03' = 3
