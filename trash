@@ -100,3 +100,24 @@ export { Graph };
 //     );
 //   }
 // }
+
+// {
+//   place_name: 'C',
+//   street: 'Rua Horacio Fontenele Magalhaes',
+//   housenumber: 'SN',
+//   postcode: '62300-000',
+//   city: 'Viçosa do Ceará',
+//   neighborhood: 'Northeast',
+//   state: 'CE',
+//   country: 'Brasil',
+// },
+// {
+//   place_name: 'D',
+//   street: 'Rua Horacio Fontenele Magalhaes',
+//   housenumber: 'SN',
+//   postcode: '62300-000',
+//   city: 'Viçosa do Ceará',
+//   neighborhood: 'Northeast',
+//   state: 'CE',
+//   country: 'Brasil',
+// },

@@ -61,23 +61,31 @@ async function makeGraph(address: Array<Address>) {
 }
 
 function getSmallerDistance(listDistances: Array<Edge>): Edge {
-  var smallerDistance = new Array<Edge>()[0];
+  var smallerDistance = new Edge(new Address(), new Address(), 0);
+  smallerDistance = listDistances[0];
 
   for (var i = 1; i < listDistances.length; i++) {
     if (listDistances[i].distance < smallerDistance.distance && smallerDistance)
       smallerDistance = listDistances[i];
   }
-  console.log(smallerDistance);
+
   return smallerDistance;
 }
 
 function getGreaterDistance(listDistances: Array<Edge>): Edge {
-  var greaterDistance = listDistances[0];
+  var greaterDistance = new Edge(new Address(), new Address(), 0);
+  greaterDistance = listDistances[0];
 
   for (var i = 1; i < listDistances.length; i++) {
     if (listDistances[i] < greaterDistance) greaterDistance = listDistances[i];
   }
+
   return greaterDistance;
 }
 
-export { getDistanceTwoPoint, makeGraph, getSmallerDistance };
+export {
+  getDistanceTwoPoint,
+  makeGraph,
+  getSmallerDistance,
+  getGreaterDistance,
+};

@@ -1,10 +1,14 @@
 import { Request, Response, NextFunction } from 'express';
 import { Edge } from '../entities/Edge';
-import { getSmallerDistance, makeGraph } from '../services/ApiGeoapify';
+import {
+  getSmallerDistance,
+  getGreaterDistance,
+  makeGraph,
+} from '../services/ApiGeoapify';
 
 class AddressController {
   async index(request: Request, response: Response) {
-    return response.json('API Coordinate');
+    return response.status(200).send('API Coordinate');
   }
 
   async calculate_distance(request: Request, response: Response) {
@@ -13,9 +17,14 @@ class AddressController {
     var listDistance = new Array<Edge>();
     listDistance = await makeGraph(addresses);
 
-    getSmallerDistance(listDistance);
+    const smallerDistance = getSmallerDistance(listDistance);
+    const greaterDistance = getGreaterDistance(listDistance);
 
-    return response.json(listDistance);
+    return response.status(200).json({
+      listDistance: listDistance,
+      smallerDistance: smallerDistance.distance,
+      greaterDistance: greaterDistance.distance,
+    });
   }
 }
 
