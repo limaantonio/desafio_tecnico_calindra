@@ -49,6 +49,11 @@ o serviços de geocoding da API Geoapify. Essa aplicação foi desenvolvida para
 
 ```
 
+## Dependencia
+
+Para o funcionamento correto da aplicação é necesário obter a API_KEY que será utilizada
+na chamada a API de Geolocalização utilizada nesse projeto [Geoapify](https://www.geoapify.com/'). Portanto é preciso criar um conta no site: https://myprojects.geoapify.com/login. Após, deve ser criado um arquivo .env, conforme .env.example.env e colocar a ApiKey obtida no ato do cadastro no [Geoapify](https://www.geoapify.com/').
+
 ## Rotas
 
 ```
