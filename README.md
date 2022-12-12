@@ -279,7 +279,7 @@ e retorna a menor e maior distância entre esses endereços.
         }
     ],
     "smallerDistance": 0,
-    "greaterDistance": 2763.882
+    "greaterDistance": 2764.052
 }
 
 ```
