@@ -1,51 +1,46 @@
-import { Address } from "./Address";
+import { Address } from './Address';
+import { Edge } from './Edge';
 
 class Graph {
-    adjacencyList:  Map<Address, Array<Address>>;
-    vertex: Address;
+  adjacencyList: Map<Address, Array<Edge>>;
+  nVertex: number;
+  edge: Edge;
 
-    constructor (vertex: Address) {
-        this.adjacencyList = new Map()
-        this.vertex = vertex
-    }
+  constructor(vertex: number) {
+    this.adjacencyList = new Map();
+    this.edge = new Edge(new Address(), new Address(), 0);
+    this.nVertex = vertex;
+  }
 
-    addVertex(a: Address) {
-        this.adjacencyList.set(a, [])
-    }
+  addVertex(a: Address) {
+    this.adjacencyList.set(a, []);
+  }
 
-    addEdge(v: Address, w: Address) {
+  addEdge(a1: Address, a2: Address, weight: number) {
+    var edge = new Edge(a1, a2, weight);
 
-        this.adjacencyList.get(v)?.push(w)
-        this.adjacencyList.get(w)?.push(v)
-        
-    }
+    this.adjacencyList.get(a1)?.push(edge);
+  }
 
-    printGraph() {
-        // get all the vertices
-        var get_keys = this.adjacencyList.keys();
-    
-        // iterate over the vertices
-        var i = new Address()
-        for (i of get_keys) {
-            // great the corresponding adjacency list
-            // for the vertex
-            var get_values = this.adjacencyList.get(i);
-            var conc = new Address();
-            conc.place_name = ""
-    
-            // iterate over the adjacency list
-            // concatenate the values into a string
-            if (get_values) {
-                var j = new Address()
-                for (j of get_values){
-                    conc.place_name += j.place_name + " ";
-                   
-                }
-            }
-            // print the vertex and its adjacency list
-            console.log(i.place_name + " -> " + conc.place_name);
+  getListDistances() {
+    var get_keys = this.adjacencyList.keys();
+    var i = new Address();
+    var distances = new Array<Edge>();
+
+    for (i of get_keys) {
+      var get_values = this.adjacencyList.get(i);
+
+      var j = new Edge(new Address(), new Address(), 0);
+
+      if (get_values) {
+        for (j of get_values) {
+          distances.push(j);
         }
+      }
     }
+
+    return distances;
+  }
 }
 
-export {Graph}
+export { Graph };

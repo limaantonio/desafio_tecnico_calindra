@@ -8,7 +8,7 @@ class Address {
   state!: string;
   housenumber!: string;
   lat!: string;
-  lon!: string
+  lon!: string;
 
   // constructor(
   //   street: string,

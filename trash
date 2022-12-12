@@ -1,0 +1,102 @@
+// var distances: Array<Object> = [];
+
+// const n = address.length * (address.length - 1);
+
+// for (var i = 0; i < n; i++) {
+//   const routing = await fetch(
+//     `https://api.geoapify.com/v1/routing?waypoints=${addressAnt.lat},${addressAnt.lon}|${addressAtual.lat},${addressAtual.lon}&mode=drive&apiKey=28d602d627cb411d988f5a9790dcefdf`,
+//   )
+//     .then(response => response.json())
+//     .catch(error => console.log('error', error));
+
+//   addressAtual = address[i + 1];
+//   addressAnt = address[i];
+
+//   console.log('i - ' + address[i].housenumber + '-' + i);
+
+//   distances.push(routing.features[0].properties.distance);
+// }
+
+import { Address } from './Address';
+import { Edge } from './Edge';
+
+class Graph {
+  edge: Edge;
+  adjacencyList: Map<Edge, Array<Address>>;
+  //adjacencyList: Array<Address>[][];
+  nVertex: number;
+
+  constructor(nVertex: number) {
+    this.edge = new Edge();
+    this.adjacencyList = new Array<Edge>();
+    this.nVertex = nVertex;
+  }
+
+  // addEdge(a1: Address, a2: Address, weight: number) {
+  //   a1.distance = weight;
+  //   const num = this.adjacencyList.length;
+  //   var i = new Address();
+  //   var j = new Address();
+
+  //   for (i. = 0; i < num; i++) {
+  //     for (j = 0; j < num; j++) {
+  //       if (i === a1 && j === a2) this.adjacencyList[i][j] = weight;
+  //     }
+  //   }
+  // }
+  // addVertex(a: Address) {
+  //   this.adjacencyList.set(a, []);
+  // }
+
+  // addEdge(a1: Address, a2: Address, weight: number) {
+  //   a1.distance = weight;
+  //   this.adjacencyList.get(a1)?.push(a2);
+  //   this.adjacencyList.get(a2)?.push(a2);
+  // }
+
+  printGraph() {
+    var get_keys = this.adjacencyList.keys();
+    var i = new Address();
+
+    for (i of get_keys) {
+      var get_values = this.adjacencyList.get(i);
+      var conc = new Address();
+      conc.place_name = '';
+
+      if (get_values) {
+        var j = new Address();
+
+        for (j of get_values) {
+          conc.place_name += j.place_name + ' ';
+        }
+      }
+      console.log(
+        i.place_name + ' -> ' + conc.place_name + '->' + conc.distance,
+      );
+    }
+  }
+}
+
+export { Graph };
+
+// printGraph() {
+//   var get_keys = this.adjacencyList.keys();
+//   var i = new Address();
+
+//   for (i of get_keys) {
+//     var get_values = this.adjacencyList.get(i);
+//     var conc = new Address();
+//     conc.place_name = '';
+
+//     if (get_values) {
+//       var j = new Edge();
+
+//       for (j of get_values) {
+//         conc.place_name += j.des.place_name + ' ';
+//       }
+//     }
+//     console.log(
+//       i.place_name + ' -> ' + conc.place_name + '->' + conc.distance,
+//     );
+//   }
+// }

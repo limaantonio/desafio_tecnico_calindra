@@ -1,23 +1,21 @@
 import { Request, Response, NextFunction } from 'express';
-//import AddressModel from '../models/AddressModel';
-import { getDistanceTwoPoint, getGraph } from '../services/ApiGeoapify';
+import { Edge } from '../entities/Edge';
+import { getSmallerDistance, makeGraph } from '../services/ApiGeoapify';
 
 class AddressController {
   async index(request: Request, response: Response) {
-
-   
-    
-    return response.json("API Coordinate");
+    return response.json('API Coordinate');
   }
 
-  async create(request: Request, response: Response) {
+  async calculate_distance(request: Request, response: Response) {
     const addresses = request.body;
 
-    getGraph(addresses);
+    var listDistance = new Array<Edge>();
+    listDistance = await makeGraph(addresses);
 
-   // const distance = await getDistanceTwoPoint(addresses)
+    getSmallerDistance(listDistance);
 
-    return response.json({"Distancia": addresses});
+    return response.json(listDistance);
   }
 }
 

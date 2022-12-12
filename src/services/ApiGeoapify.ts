@@ -1,118 +1,83 @@
+require('dotenv').config();
 import fetch from 'node-fetch';
 import { Address } from '../entities/Address';
+import { Edge } from '../entities/Edge';
 import { Graph } from '../entities/Graph';
+import { convertMetersToKilometers } from '../utils/ConvertDistance';
 
-async function getLatitudeLogitude(data: Address): Promise<Address> {
-
+async function getLatitudeLogitude(address: Address): Promise<Address> {
   const geocode = await fetch(
-    `https://api.geoapify.com/v1/geocode/search?name=${data.place_name}&housenumber=${data.housenumber}&street=${data.street}&postcode=${data.postcode}&city=${data.city}&state=${data.state}&country=${data.country}&format=json&apiKey=28d602d627cb411d988f5a9790dcefdf`,
+    `https://api.geoapify.com/v1/geocode/search?name=${address.place_name}&housenumber=${address.housenumber}&street=${address.street}&postcode=${address.postcode}&city=${address.city}&state=${address.state}&country=${address.country}&format=json&apiKey=${process.env.API_KEY}`,
   )
     .then(response => response.json())
     .catch(error => console.log('error', error));
 
-  data.lat= geocode.results[0].lat;
-  data.lon = geocode.results[0].lon;
+  address.lat = geocode.results[0].lat;
+  address.lon = geocode.results[0].lon;
 
-  return data;
+  return address;
 }
 
-async function getDistanceTwoPoint(address:Array<Address>): Promise<Array<Object>> {
+async function getDistanceTwoPoint(p1: Address, p2: Address): Promise<number> {
+  const points = [p1, p2];
+  var distance: number;
 
-  await Promise.all(address.map(getLatitudeLogitude));
+  await Promise.all(points.map(getLatitudeLogitude));
 
-  var addressAtual = address[1];
-  var addressAnt = address[0];
-
-  var distances: Array<Object> = []
-
-  const n = address.length * (address.length - 1) 
-
-  for (var i=0; i<n; i++) {
-    const routing = await fetch(
-      `https://api.geoapify.com/v1/routing?waypoints=${addressAnt.lat},${addressAnt.lon}|${addressAtual.lat},${addressAtual.lon}&mode=drive&apiKey=28d602d627cb411d988f5a9790dcefdf`
-    ) .then(response => response.json())
+  const routing = await fetch(
+    `https://api.geoapify.com/v1/routing?waypoints=${p1.lat},${p1.lon}|${p2.lat},${p2.lon}&mode=drive&apiKey=${process.env.API_KEY}&`,
+  )
+    .then(response => response.json())
     .catch(error => console.log('error', error));
 
-    addressAtual = address[i+1]
-    addressAnt = address[i]
+  distance = routing.features[0].properties.distance;
 
-    console.log("i - " + address[i].housenumber + "-" + i)
-
-    distances.push(routing.features[0].properties.distance)
-  }
-
-  return distances
- 
+  return distance;
 }
 
-function getGraph(address:Array<Address>) {
-  var g = new Graph(4)
+async function makeGraph(address: Array<Address>) {
+  var graph = new Graph(address.length);
 
-  var vertices = [ 'A', 'B', 'C', 'D'];
-
-  // for (var i=0; i < vertices.length; i++) {
-  //   g.addVertex(vertices[i])
-  // }
-
-  for (var i=0; i < address.length; i++) {
-    g.addVertex(address[i])
+  for (var i = 0; i < address.length; i++) {
+    graph.addVertex(address[i]);
   }
 
- 
+  for (var i = 0; i < address.length; i++) {
+    for (var j = i; j < address.length - 1; j++) {
+      const source = address[i];
+      const destiny = address[j + 1];
+      const distance = await getDistanceTwoPoint(source, destiny);
+      const distance_km = convertMetersToKilometers(distance);
 
-  for (var i=0; i < address.length; i++) {
-
-    for (var j=i; j < address.length - j; j++) {
-      g.addEdge(address[i], address[j+1])
+      graph.addEdge(source, destiny, distance_km);
     }
-   
-
-
-     //   v[0] -> '01' = 6, '02' = 4, '03' = 3
-    //   v[1] -> '12' = 2, '13' = 1
-    //   v[2] -> '23' = 9
-    //   v[3] -> 
-    
   }
-  
 
-  // g.addEdge(address[0], address[1])
-  // g.addEdge(address[0], address[2])
-  // g.addEdge(address[0], address[3])
-  // g.addEdge(address[1], address[2])
-  // g.addEdge(address[1], address[3])
-  // g.addEdge(address[2], address[3])
+  var listDistances = new Array();
 
-    // g.addEdge('A', 'B')
-    // g.addEdge('A', 'C')
-    // g.addEdge('A', 'D')
-    // g.addEdge('B', 'C')
-    // g.addEdge('B', 'D')
-    // g.addEdge('C', 'D')
- 
+  listDistances = graph.getListDistances();
 
-  // for (var i=0; i < address.length; i++) {
-
-  //   g.addEdge(address[i], address[i+1])
-   
-
- 
-
-    
-
-  
-    
-  // }
-
- 
-  g.printGraph()
-
-  
+  return listDistances;
 }
 
-//TO-DO: funcao que cria um grafo a partir da lista de endereços. Busca no grafo
-// 1 - Endereço = Vertice -> coordenadas geograficas obtidas a partir da chamada a api
-// 2 - Rotas = Aresta -> 
-// 3 - Distancia = Peso -> 
+function getSmallerDistance(listDistances: Array<Edge>): Edge {
+  var smallerDistance = new Array<Edge>()[0];
 
-export { getLatitudeLogitude, getDistanceTwoPoint, getGraph};
+  for (var i = 1; i < listDistances.length; i++) {
+    if (listDistances[i].distance < smallerDistance.distance && smallerDistance)
+      smallerDistance = listDistances[i];
+  }
+  console.log(smallerDistance);
+  return smallerDistance;
+}
+
+function getGreaterDistance(listDistances: Array<Edge>): Edge {
+  var greaterDistance = listDistances[0];
+
+  for (var i = 1; i < listDistances.length; i++) {
+    if (listDistances[i] < greaterDistance) greaterDistance = listDistances[i];
+  }
+  return greaterDistance;
+}
+
+export { getDistanceTwoPoint, makeGraph, getSmallerDistance };
