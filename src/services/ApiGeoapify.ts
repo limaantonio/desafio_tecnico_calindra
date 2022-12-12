@@ -77,7 +77,8 @@ function getGreaterDistance(listDistances: Array<Edge>): Edge {
   greaterDistance = listDistances[0];
 
   for (var i = 1; i < listDistances.length; i++) {
-    if (listDistances[i] < greaterDistance) greaterDistance = listDistances[i];
+    if (listDistances[i].distance > greaterDistance.distance)
+      greaterDistance = listDistances[i];
   }
 
   return greaterDistance;
@@ -88,4 +89,5 @@ export {
   makeGraph,
   getSmallerDistance,
   getGreaterDistance,
+  getLatitudeLogitude,
 };

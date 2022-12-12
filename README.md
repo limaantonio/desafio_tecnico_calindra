@@ -44,6 +44,9 @@ o serviços de geocoding da API Geoapify. Essa aplicação foi desenvolvida para
   # Inciar o projeto
   $ yarn dev ou npm run dev
 
+    # Executar testes
+  $ yarn test ou npm run test
+
 ```
 
 ## Rotas
