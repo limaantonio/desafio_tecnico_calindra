@@ -8,7 +8,7 @@ import {
 
 class RoutesController {
   async index(request: Request, response: Response) {
-    return response.status(200).send('API Coordinate');
+    return response.status(200).send('API GEOCODING');
   }
 
   async calculate_distance(request: Request, response: Response) {

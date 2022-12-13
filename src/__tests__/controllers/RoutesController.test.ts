@@ -7,7 +7,7 @@ describe('Test the endpoint calculate distance', () => {
     jest.setTimeout(50000);
 
     request(await routes)
-      .post('/address')
+      .post('/routes')
       .send({
         address: [
           {

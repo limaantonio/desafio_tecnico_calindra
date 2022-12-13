@@ -60,7 +60,7 @@ na chamada da API de Geolocalização [Geoapify](https://www.geoapify.com/'). Po
   Rotas Address:
 
   * GET /: exibe mensagem de boas-vindas
-  * POST /address: recebe uma lista de endereços e retorna uma lista das rotas
+  * POST /routes: recebe uma lista de endereços e retorna uma lista das rotas
   entre cada uma, a menor e maior distância dentre elas.
 
 ```

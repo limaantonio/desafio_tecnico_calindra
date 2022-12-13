@@ -5,6 +5,6 @@ const routes = Router();
 const addressController = new RoutesController();
 
 routes.get('/', addressController.index);
-routes.post('/address', addressController.calculate_distance);
+routes.post('/routes', addressController.calculate_distance);
 
 export { routes };
