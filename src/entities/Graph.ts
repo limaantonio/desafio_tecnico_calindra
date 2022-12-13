@@ -1,3 +1,5 @@
+import { getDistanceTwoPoint } from '../services/ApiGeoapify';
+import { convertMetersToKilometers } from '../utils/ConvertDistance';
 import { Address } from './Address';
 import { Edge } from './Edge';
 
@@ -23,6 +25,28 @@ class Graph {
     edge.distance = weight;
 
     this.adjacencyList.get(a1)?.push(edge);
+  }
+
+  async makeGraph(address: Array<Address>): Promise<Graph> {
+    try {
+      for (var i = 0; i < address.length; i++) {
+        this.addVertex(address[i]);
+      }
+
+      for (var i = 0; i < address.length; i++) {
+        for (var j = i; j < address.length - 1; j++) {
+          const source = address[i];
+          const destiny = address[j + 1];
+          const distance = await getDistanceTwoPoint(source, destiny);
+          const distance_km = convertMetersToKilometers(distance);
+
+          this.addEdge(source, destiny, distance_km);
+        }
+      }
+    } catch (error: any) {
+      return error;
+    }
+    return this;
   }
 
   getEdges() {

@@ -4,7 +4,6 @@ import { ListRoutes } from '../entities/ListRoutes';
 import {
   getSmallerDistance,
   getGreaterDistance,
-  makeGraph,
 } from '../services/ApiGeoapify';
 
 class AddressController {
@@ -15,14 +14,18 @@ class AddressController {
   async calculate_distance(request: Request, response: Response) {
     const addresses = request.body;
 
-    var listDistance = new Graph(addresses.length);
-    listDistance = await makeGraph(addresses);
+    var graph = new Graph(addresses.length);
+    await graph.makeGraph(addresses);
 
-    var listRoutes = new ListRoutes(
-      listDistance.getEdges(),
-      getSmallerDistance(listDistance),
-      getGreaterDistance(listDistance),
-    );
+    try {
+      var listRoutes = new ListRoutes(
+        graph.getEdges(),
+        getSmallerDistance(graph.getEdges()),
+        getGreaterDistance(graph.getEdges()),
+      );
+    } catch (err) {
+      return response.status(400).send(err);
+    }
 
     return response.status(200).json({
       listRoutes,

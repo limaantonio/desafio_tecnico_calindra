@@ -1,8 +1,8 @@
 import { describe, expect, test } from '@jest/globals';
+import { Graph } from '../../entities/Graph';
 import {
   getLatitudeLogitude,
   getDistanceTwoPoint,
-  makeGraph,
   getSmallerDistance,
   getGreaterDistance,
 } from '../../services/ApiGeoapify';
@@ -201,6 +201,7 @@ describe('Test the services', () => {
   });
 
   test('It should return the distance between two points', async () => {
+    jest.setTimeout(50000);
     const a = {
       place_name: 'A',
       street: 'Av. Rio Branco',
@@ -257,20 +258,19 @@ describe('Test the services', () => {
         lon: '-41.091586',
       },
     ];
-    const data = await makeGraph(addresses);
+    const graph = new Graph(addresses.length);
+    const data = await graph.makeGraph(addresses);
     expect(data.getEdges()[0].distance).toEqual(2763.882);
   });
 
-  test('It should return the smaller distance in list of distances', () => {
-    const response = getSmallerDistance(listDistance);
+  test('It should return the smaller distance in list of distances', async () => {
+    const response = await getSmallerDistance(listDistance);
     expect(response.distance).toEqual(0);
   });
 
-  test('It should return the greater distance distance in list of distances', () => {
+  test('It should return the greater distance distance in list of distances', async () => {
     jest.setTimeout(50000);
-
-    const response = getGreaterDistance(listDistance);
-    console.log(response.distance);
+    const response = await getGreaterDistance(listDistance);
     expect(response.distance).toEqual(2764.052);
   });
 

@@ -4,17 +4,10 @@ import { AddressController } from '../../controllers/AddressController';
 const addressController = new AddressController();
 
 describe('Test the endpoint calculate distance', () => {
-  test('It should response the GET method', done => {
-    request(addressController.index)
-      .get('/')
-      .then(response => expect(response.statusCode).toBe(200));
-    done();
-  });
-
-  test('It should response the POST method with the list of distances', done => {
+  test('It should response the POST method with the list of distances', async () => {
     jest.setTimeout(50000);
 
-    request(addressController.calculate_distance)
+    request(await addressController.calculate_distance)
       .post('/address')
       .send({
         address: [
@@ -193,6 +186,5 @@ describe('Test the endpoint calculate distance', () => {
           },
         }),
       );
-    done();
   });
 });
