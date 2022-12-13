@@ -27,7 +27,7 @@ class Graph {
     this.adjacencyList.get(a1)?.push(edge);
   }
 
-  async makeGraph(address: Array<Address>): Promise<Graph> {
+  async setEdges(address: Array<Address>): Promise<Graph> {
     try {
       for (var i = 0; i < address.length; i++) {
         this.addVertex(address[i]);

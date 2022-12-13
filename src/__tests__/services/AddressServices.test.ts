@@ -232,6 +232,7 @@ describe('Test the services', () => {
   });
 
   test('It should return the list distance between addresses', async () => {
+    jest.setTimeout(50000);
     const addresses = [
       {
         place_name: 'A',
@@ -259,7 +260,7 @@ describe('Test the services', () => {
       },
     ];
     const graph = new Graph(addresses.length);
-    const data = await graph.makeGraph(addresses);
+    const data = await graph.setEdges(addresses);
     expect(data.getEdges()[0].distance).toEqual(2763.882);
   });
 

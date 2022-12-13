@@ -1,13 +1,12 @@
 import { describe, expect, test } from '@jest/globals';
 import request from 'supertest';
-import { AddressController } from '../../controllers/AddressController';
-const addressController = new AddressController();
+import { routes } from '../../routes';
 
 describe('Test the endpoint calculate distance', () => {
   test('It should response the POST method with the list of distances', async () => {
     jest.setTimeout(50000);
 
-    request(await addressController.calculate_distance)
+    request(await routes)
       .post('/address')
       .send({
         address: [

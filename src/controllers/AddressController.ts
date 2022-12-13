@@ -15,7 +15,7 @@ class AddressController {
     const addresses = request.body;
 
     var graph = new Graph(addresses.length);
-    await graph.makeGraph(addresses);
+    await graph.setEdges(addresses);
 
     try {
       var listRoutes = new ListRoutes(
@@ -24,6 +24,7 @@ class AddressController {
         getGreaterDistance(graph.getEdges()),
       );
     } catch (err) {
+      console.error(err);
       return response.status(400).send(err);
     }
 
