@@ -5,12 +5,10 @@ import { Edge } from '../entities/Edge';
 import { Graph } from '../entities/Graph';
 import { convertMetersToKilometers } from '../utils/ConvertDistance';
 
-async function getLatitudeLogitude(address: Address): Promise<Address> {
+async function getLatitudeLogitude(address: Address): Promise<Address | Error> {
   const geocode = await fetch(
     `https://api.geoapify.com/v1/geocode/search?name=${address.place_name}&housenumber=${address.housenumber}&street=${address.street}&postcode=${address.postcode}&city=${address.city}&state=${address.state}&country=${address.country}&format=json&apiKey=${process.env.API_KEY}`,
-  )
-    .then(response => response.json())
-    .catch(error => console.log('error', error));
+  ).then(response => response.json());
 
   address.lat = geocode.results[0].lat;
   address.lon = geocode.results[0].lon;
@@ -26,16 +24,14 @@ async function getDistanceTwoPoint(p1: Address, p2: Address): Promise<number> {
 
   const routing = await fetch(
     `https://api.geoapify.com/v1/routing?waypoints=${p1.lat},${p1.lon}|${p2.lat},${p2.lon}&mode=drive&apiKey=${process.env.API_KEY}&`,
-  )
-    .then(response => response.json())
-    .catch(error => console.log('error', error));
+  ).then(response => response.json());
 
   distance = routing.features[0].properties.distance;
 
   return distance;
 }
 
-async function makeGraph(address: Array<Address>) {
+async function makeGraph(address: Array<Address>): Promise<Graph> {
   var graph = new Graph(address.length);
 
   for (var i = 0; i < address.length; i++) {
@@ -53,16 +49,15 @@ async function makeGraph(address: Array<Address>) {
     }
   }
 
-  var listDistances = new Array();
+  // var listDistances = new Array<Edge>();
 
-  listDistances = graph.getListDistances();
+  // listDistances = graph.getListDistances();
 
-  return listDistances;
+  return graph;
 }
 
 function getSmallerDistance(listDistances: Array<Edge>): Edge {
-  var smallerDistance = new Edge(new Address(), new Address(), 0);
-  smallerDistance = listDistances[0];
+  var smallerDistance = listDistances[0];
 
   for (var i = 1; i < listDistances.length; i++) {
     if (listDistances[i].distance < smallerDistance.distance && smallerDistance)
@@ -73,8 +68,7 @@ function getSmallerDistance(listDistances: Array<Edge>): Edge {
 }
 
 function getGreaterDistance(listDistances: Array<Edge>): Edge {
-  var greaterDistance = new Edge(new Address(), new Address(), 0);
-  greaterDistance = listDistances[0];
+  var greaterDistance = listDistances[0];
 
   for (var i = 1; i < listDistances.length; i++) {
     if (listDistances[i].distance > greaterDistance.distance)

@@ -8,7 +8,7 @@ class Graph {
 
   constructor(vertex: number) {
     this.adjacencyList = new Map();
-    this.edge = new Edge(new Address(), new Address(), 0);
+    this.edge = new Edge();
     this.nVertex = vertex;
   }
 
@@ -17,12 +17,15 @@ class Graph {
   }
 
   addEdge(a1: Address, a2: Address, weight: number) {
-    var edge = new Edge(a1, a2, weight);
+    var edge = new Edge();
+    edge.destiny = a1;
+    edge.origin = a2;
+    edge.distance = weight;
 
     this.adjacencyList.get(a1)?.push(edge);
   }
 
-  getListDistances() {
+  getEdges() {
     var get_keys = this.adjacencyList.keys();
     var i = new Address();
     var distances = new Array<Edge>();
@@ -30,7 +33,7 @@ class Graph {
     for (i of get_keys) {
       var get_values = this.adjacencyList.get(i);
 
-      var j = new Edge(new Address(), new Address(), 0);
+      var j = new Edge();
 
       if (get_values) {
         for (j of get_values) {

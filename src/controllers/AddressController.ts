@@ -1,5 +1,6 @@
-import { Request, Response, NextFunction } from 'express';
-import { Edge } from '../entities/Edge';
+import { Request, Response } from 'express';
+import { Graph } from '../entities/Graph';
+import { ListRoutes } from '../entities/ListRoutes';
 import {
   getSmallerDistance,
   getGreaterDistance,
@@ -14,16 +15,17 @@ class AddressController {
   async calculate_distance(request: Request, response: Response) {
     const addresses = request.body;
 
-    var listDistance = new Array<Edge>();
+    var listDistance = new Graph(addresses.length);
     listDistance = await makeGraph(addresses);
 
-    const smallerDistance = getSmallerDistance(listDistance);
-    const greaterDistance = getGreaterDistance(listDistance);
+    var listRoutes = new ListRoutes(
+      listDistance.getEdges(),
+      getSmallerDistance(listDistance),
+      getGreaterDistance(listDistance),
+    );
 
     return response.status(200).json({
-      listDistance: listDistance,
-      smallerDistance: smallerDistance.distance,
-      greaterDistance: greaterDistance.distance,
+      listRoutes,
     });
   }
 }

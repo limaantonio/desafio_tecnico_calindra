@@ -12,9 +12,7 @@
 
 ## 🗒 Sobre
 
-O **API GEOCODING** é uma aplicação back-end que obtém a distância entre endereços
-e retorna a menor e maior distância entre esses endereços. A aplicação utiliza
-o serviços de geocoding da API Geoapify. Essa aplicação foi desenvolvida para o desafio técnico da **CALINDA**.
+O **API GEOCODING** é uma aplicação back-end, desenvolvida para o desafio técnico da **CALINDA**. Ela obtém uma lista distância entre endereços a apatir de endereços fornecidos, menor e maior distância entre esses endereços. A aplicação utiliza os serviços de geocoding da [Geoapify](https://www.geoapify.com/').
 
 ---
 
@@ -51,8 +49,8 @@ o serviços de geocoding da API Geoapify. Essa aplicação foi desenvolvida para
 
 ## Dependencia
 
-Para o funcionamento correto da aplicação é necesário obter a API_KEY que será utilizada
-na chamada a API de Geolocalização utilizada nesse projeto [Geoapify](https://www.geoapify.com/'). Portanto é preciso criar um conta no site: https://myprojects.geoapify.com/login. Após, deve ser criado um arquivo .env, conforme .env.example.env e colocar a ApiKey obtida no ato do cadastro no [Geoapify](https://www.geoapify.com/').
+Para o correto funcionamento da aplicação é necesário obter uma API_KEY, que será utilizada
+na chamada a API de Geolocalização [Geoapify](https://www.geoapify.com/'). Portanto é preciso criar uma conta no site: https://myprojects.geoapify.com/login. Após, deve ser criado um arquivo .env, conforme .env.example.env e colocar a ApiKey obtida no ato do cadastro no [Geoapify](https://www.geoapify.com/').
 
 ## Rotas
 
@@ -61,9 +59,9 @@ na chamada a API de Geolocalização utilizada nesse projeto [Geoapify](https://
 
   Rotas Address:
 
-  * GET /: info
-  * POST /address: recebe uma lista de endereços e retona a distância entre endereços
-e retorna a menor e maior distância entre esses endereços.
+  * GET /: exibe mensagem de boas-vindas
+  * POST /address: recebe uma lista de endereços e retorna uma lista das routas
+  entre cada, a menor e maior distância dentre essas rotas.
 
 ```
 
@@ -119,172 +117,172 @@ e retorna a menor e maior distância entre esses endereços.
 
 ```
 {
-    "listDistance": [
-        {
-            "origin": {
-                "place_name": "A",
-                "street": "Av. Rio Branco",
-                "housenumber": 1,
-                "postcode": "20090003",
-                "city": "Rio de Janeiro",
-                "neighborhood": "Centro",
-                "state": "RJ",
-                "country": "Brasil",
-                "lat": -22.89750765,
-                "lon": -43.18020490826943
+    "listRoutes": {
+        "routes": [
+            {
+                "origin": {
+                    "place_name": "B",
+                    "street": "Rua Horacio Fontenele Magalhaes",
+                    "housenumber": 329,
+                    "postcode": "62300-000",
+                    "city": "Viçosa do Ceará",
+                    "neighborhood": "Northeast",
+                    "state": "CE",
+                    "country": "Brasil",
+                    "lat": -3.561473,
+                    "lon": -41.091586
+                },
+                "destiny": {
+                    "place_name": "A",
+                    "street": "Av. Rio Branco",
+                    "housenumber": 1,
+                    "postcode": "20090003",
+                    "city": "Rio de Janeiro",
+                    "neighborhood": "Centro",
+                    "state": "RJ",
+                    "country": "Brasil",
+                    "lat": -22.89750765,
+                    "lon": -43.18020490826943
+                },
+                "distance": 2763.882
             },
-            "destiny": {
-                "place_name": "B",
-                "street": "Rua Horacio Fontenele Magalhaes",
-                "housenumber": 329,
-                "postcode": "62300-000",
-                "city": "Viçosa do Ceará",
-                "neighborhood": "Northeast",
-                "state": "CE",
-                "country": "Brasil",
-                "lat": -3.561473,
-                "lon": -41.091586
+            {
+                "origin": {
+                    "place_name": "C",
+                    "street": "Rua Horacio Fontenele Magalhaes",
+                    "housenumber": "SN",
+                    "postcode": "62300-000",
+                    "city": "Viçosa do Ceará",
+                    "neighborhood": "Northeast",
+                    "state": "CE",
+                    "country": "Brasil",
+                    "lat": -3.561013,
+                    "lon": -41.090133
+                },
+                "destiny": {
+                    "place_name": "A",
+                    "street": "Av. Rio Branco",
+                    "housenumber": 1,
+                    "postcode": "20090003",
+                    "city": "Rio de Janeiro",
+                    "neighborhood": "Centro",
+                    "state": "RJ",
+                    "country": "Brasil",
+                    "lat": -22.89750765,
+                    "lon": -43.18020490826943
+                },
+                "distance": 2764.052
             },
-            "distance": 2763.882
-        },
-        {
-            "origin": {
-                "place_name": "A",
-                "street": "Av. Rio Branco",
-                "housenumber": 1,
-                "postcode": "20090003",
-                "city": "Rio de Janeiro",
-                "neighborhood": "Centro",
-                "state": "RJ",
-                "country": "Brasil",
-                "lat": -22.89750765,
-                "lon": -43.18020490826943
+            {
+                "origin": {
+                    "place_name": "D",
+                    "street": "Rua Horacio Fontenele Magalhaes",
+                    "housenumber": "SN",
+                    "postcode": "62300-000",
+                    "city": "Viçosa do Ceará",
+                    "neighborhood": "Northeast",
+                    "state": "CE",
+                    "country": "Brasil",
+                    "lat": -3.561013,
+                    "lon": -41.090133
+                },
+                "destiny": {
+                    "place_name": "A",
+                    "street": "Av. Rio Branco",
+                    "housenumber": 1,
+                    "postcode": "20090003",
+                    "city": "Rio de Janeiro",
+                    "neighborhood": "Centro",
+                    "state": "RJ",
+                    "country": "Brasil",
+                    "lat": -22.89750765,
+                    "lon": -43.18020490826943
+                },
+                "distance": 2764.052
             },
-            "destiny": {
-                "place_name": "C",
-                "street": "Rua Horacio Fontenele Magalhaes",
-                "housenumber": "SN",
-                "postcode": "62300-000",
-                "city": "Viçosa do Ceará",
-                "neighborhood": "Northeast",
-                "state": "CE",
-                "country": "Brasil",
-                "lat": -3.561013,
-                "lon": -41.090133
+            {
+                "origin": {
+                    "place_name": "C",
+                    "street": "Rua Horacio Fontenele Magalhaes",
+                    "housenumber": "SN",
+                    "postcode": "62300-000",
+                    "city": "Viçosa do Ceará",
+                    "neighborhood": "Northeast",
+                    "state": "CE",
+                    "country": "Brasil",
+                    "lat": -3.561013,
+                    "lon": -41.090133
+                },
+                "destiny": {
+                    "place_name": "B",
+                    "street": "Rua Horacio Fontenele Magalhaes",
+                    "housenumber": 329,
+                    "postcode": "62300-000",
+                    "city": "Viçosa do Ceará",
+                    "neighborhood": "Northeast",
+                    "state": "CE",
+                    "country": "Brasil",
+                    "lat": -3.561473,
+                    "lon": -41.091586
+                },
+                "distance": 0.169
             },
-            "distance": 2764.052
-        },
-        {
-            "origin": {
-                "place_name": "A",
-                "street": "Av. Rio Branco",
-                "housenumber": 1,
-                "postcode": "20090003",
-                "city": "Rio de Janeiro",
-                "neighborhood": "Centro",
-                "state": "RJ",
-                "country": "Brasil",
-                "lat": -22.89750765,
-                "lon": -43.18020490826943
+            {
+                "origin": {
+                    "place_name": "D",
+                    "street": "Rua Horacio Fontenele Magalhaes",
+                    "housenumber": "SN",
+                    "postcode": "62300-000",
+                    "city": "Viçosa do Ceará",
+                    "neighborhood": "Northeast",
+                    "state": "CE",
+                    "country": "Brasil",
+                    "lat": -3.561013,
+                    "lon": -41.090133
+                },
+                "destiny": {
+                    "place_name": "B",
+                    "street": "Rua Horacio Fontenele Magalhaes",
+                    "housenumber": 329,
+                    "postcode": "62300-000",
+                    "city": "Viçosa do Ceará",
+                    "neighborhood": "Northeast",
+                    "state": "CE",
+                    "country": "Brasil",
+                    "lat": -3.561473,
+                    "lon": -41.091586
+                },
+                "distance": 0.169
             },
-            "destiny": {
-                "place_name": "D",
-                "street": "Rua Horacio Fontenele Magalhaes",
-                "housenumber": "SN",
-                "postcode": "62300-000",
-                "city": "Viçosa do Ceará",
-                "neighborhood": "Northeast",
-                "state": "CE",
-                "country": "Brasil",
-                "lat": -3.561013,
-                "lon": -41.090133
-            },
-            "distance": 2764.052
-        },
-        {
-            "origin": {
-                "place_name": "B",
-                "street": "Rua Horacio Fontenele Magalhaes",
-                "housenumber": 329,
-                "postcode": "62300-000",
-                "city": "Viçosa do Ceará",
-                "neighborhood": "Northeast",
-                "state": "CE",
-                "country": "Brasil",
-                "lat": -3.561473,
-                "lon": -41.091586
-            },
-            "destiny": {
-                "place_name": "C",
-                "street": "Rua Horacio Fontenele Magalhaes",
-                "housenumber": "SN",
-                "postcode": "62300-000",
-                "city": "Viçosa do Ceará",
-                "neighborhood": "Northeast",
-                "state": "CE",
-                "country": "Brasil",
-                "lat": -3.561013,
-                "lon": -41.090133
-            },
-            "distance": 0.169
-        },
-        {
-            "origin": {
-                "place_name": "B",
-                "street": "Rua Horacio Fontenele Magalhaes",
-                "housenumber": 329,
-                "postcode": "62300-000",
-                "city": "Viçosa do Ceará",
-                "neighborhood": "Northeast",
-                "state": "CE",
-                "country": "Brasil",
-                "lat": -3.561473,
-                "lon": -41.091586
-            },
-            "destiny": {
-                "place_name": "D",
-                "street": "Rua Horacio Fontenele Magalhaes",
-                "housenumber": "SN",
-                "postcode": "62300-000",
-                "city": "Viçosa do Ceará",
-                "neighborhood": "Northeast",
-                "state": "CE",
-                "country": "Brasil",
-                "lat": -3.561013,
-                "lon": -41.090133
-            },
-            "distance": 0.169
-        },
-        {
-            "origin": {
-                "place_name": "C",
-                "street": "Rua Horacio Fontenele Magalhaes",
-                "housenumber": "SN",
-                "postcode": "62300-000",
-                "city": "Viçosa do Ceará",
-                "neighborhood": "Northeast",
-                "state": "CE",
-                "country": "Brasil",
-                "lat": -3.561013,
-                "lon": -41.090133
-            },
-            "destiny": {
-                "place_name": "D",
-                "street": "Rua Horacio Fontenele Magalhaes",
-                "housenumber": "SN",
-                "postcode": "62300-000",
-                "city": "Viçosa do Ceará",
-                "neighborhood": "Northeast",
-                "state": "CE",
-                "country": "Brasil",
-                "lat": -3.561013,
-                "lon": -41.090133
-            },
-            "distance": 0
-        }
-    ],
-    "smallerDistance": 0,
-    "greaterDistance": 2764.052
+            {
+                "origin": {
+                    "place_name": "D",
+                    "street": "Rua Horacio Fontenele Magalhaes",
+                    "housenumber": "SN",
+                    "postcode": "62300-000",
+                    "city": "Viçosa do Ceará",
+                    "neighborhood": "Northeast",
+                    "state": "CE",
+                    "country": "Brasil",
+                    "lat": -3.561013,
+                    "lon": -41.090133
+                },
+                "destiny": {
+                    "place_name": "C",
+                    "street": "Rua Horacio Fontenele Magalhaes",
+                    "housenumber": "SN",
+                    "postcode": "62300-000",
+                    "city": "Viçosa do Ceará",
+                    "neighborhood": "Northeast",
+                    "state": "CE",
+                    "country": "Brasil",
+                    "lat": -3.561013,
+                    "lon": -41.090133
+                },
+                "distance": 0
+            }
+        ]
+    }
 }
 
 ```

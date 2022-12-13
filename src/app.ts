@@ -1,22 +1,29 @@
-import express from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import { routes } from './routes';
 import bodyParser from 'body-parser';
-import mongoose = require('mongoose');
+import AppError from './utils/AppError';
 
 const app = express();
-
-mongoose.set('strictQuery', true);
-mongoose.connect(
-  `mongodb+srv://${process.env.USER}:${process.env.PWD}@cluster0-7t1fg.mongodb.net/dbGeocode?retryWrites=true&w=majority`,
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  },
-);
 
 app.use(express.urlencoded());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(routes);
+
+app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
+  if (err instanceof AppError) {
+    return response.status(err.statusCode).json({
+      status: 'error',
+      message: err.message,
+    });
+  }
+
+  console.log(err);
+
+  return response.status(500).json({
+    status: 'error',
+    message: 'Internal server error',
+  });
+});
 
 export { app };
