@@ -1,4 +1,3 @@
-interface Address {}
 class Address {
   place_name: string;
   country: string;

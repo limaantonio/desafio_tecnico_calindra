@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { AddressController } from './controllers/AddressController';
+import { RoutesController } from './controllers/RoutesController';
 
 const routes = Router();
-const addressController = new AddressController();
+const addressController = new RoutesController();
 
 routes.get('/', addressController.index);
 routes.post('/address', addressController.calculate_distance);

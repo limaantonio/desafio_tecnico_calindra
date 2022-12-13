@@ -4,9 +4,9 @@ import { ListRoutes } from '../entities/ListRoutes';
 import {
   getSmallerDistance,
   getGreaterDistance,
-} from '../services/ApiGeoapify';
+} from '../services/RoutesService';
 
-class AddressController {
+class RoutesController {
   async index(request: Request, response: Response) {
     return response.status(200).send('API Coordinate');
   }
@@ -34,4 +34,4 @@ class AddressController {
   }
 }
 
-export { AddressController };
+export { RoutesController };

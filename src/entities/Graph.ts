@@ -1,4 +1,4 @@
-import { getDistanceTwoPoint } from '../services/ApiGeoapify';
+import { getDistanceTwoPoint } from '../services/RoutesService';
 import { convertMetersToKilometers } from '../utils/ConvertDistance';
 import { Address } from './Address';
 import { Edge } from './Edge';

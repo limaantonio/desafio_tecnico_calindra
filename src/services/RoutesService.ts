@@ -2,8 +2,6 @@ require('dotenv').config();
 import fetch from 'node-fetch';
 import { Address } from '../entities/Address';
 import { Edge } from '../entities/Edge';
-import { Graph } from '../entities/Graph';
-import { convertMetersToKilometers } from '../utils/ConvertDistance';
 
 async function getLatitudeLogitude(address: Address): Promise<Address> {
   try {
