@@ -42,7 +42,7 @@ O **API GEOCODING** é uma aplicação back-end, desenvolvida para o desafio té
   # Inciar o projeto
   $ yarn dev ou npm run dev
 
-    # Executar testes
+  # Executar testes
   $ yarn test ou npm run test
 
 ```
