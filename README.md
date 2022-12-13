@@ -12,7 +12,7 @@
 
 ## 🗒 Sobre
 
-O **API GEOCODING** é uma aplicação back-end, desenvolvida para o desafio técnico da **CALINDA**. Ela obtém uma lista distância entre endereços a apatir de endereços fornecidos, menor e maior distância entre esses endereços. A aplicação utiliza os serviços de geocoding da [Geoapify](https://www.geoapify.com/').
+O **API GEOCODING** é uma aplicação back-end, desenvolvida para o desafio técnico da **CALINDRA**. Ela obtém uma lista de distâncias a partir de endereços fornecidos indicando a menor e a maior distância entre eles. A aplicação utiliza os serviços de geocoding da [Geoapify](https://www.geoapify.com/').
 
 ---
 
@@ -36,10 +36,10 @@ O **API GEOCODING** é uma aplicação back-end, desenvolvida para o desafio té
   # Entrar no repositório
   $ cd desafio_tecnico_calindra
 
-  # Instalar as dependencias
+  # Instalar as dependências
   $ yarn ou npm install
 
-  # Inciar o projeto
+  # Iniciar o projeto
   $ yarn dev ou npm run dev
 
   # Executar testes
@@ -47,15 +47,15 @@ O **API GEOCODING** é uma aplicação back-end, desenvolvida para o desafio té
 
 ```
 
-## Dependencia
+## Dependência
 
 Para o correto funcionamento da aplicação é necesário obter uma API_KEY, que será utilizada
-na chamada a API de Geolocalização [Geoapify](https://www.geoapify.com/'). Portanto é preciso criar uma conta no site: https://myprojects.geoapify.com/login. Após, deve ser criado um arquivo .env, conforme .env.example.env e colocar a ApiKey obtida no ato do cadastro no [Geoapify](https://www.geoapify.com/').
+na chamada da API de Geolocalização [Geoapify](https://www.geoapify.com/'). Portanto é preciso criar uma conta no site: https://myprojects.geoapify.com/login. Após, deve ser criado um arquivo .env, conforme .env.example.env e colocar a ApiKey obtida no ato do cadastro no [Geoapify](https://www.geoapify.com/').
 
 ## Rotas
 
 ```
-  Todas as requisições do POST para está API devem ter o cabeçalho Content-Type: application/json.A API contém as seguintes rotas:
+  Todas as requisições do POST para esta API devem ter o cabeçalho Content-Type: application/json. A API contém as seguintes rotas:
 
   Rotas Address:
 
